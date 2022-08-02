@@ -28,6 +28,7 @@
                         <option value="minus">-</option>
                         <option value="multiply">*</option>
                         <option value="division">/</option>
+                        <option value="percantage">%</option>
                     </select>
                 </div>
                 <small class="text-danger" id="operatorError">Operators require!</small><br>
@@ -38,7 +39,7 @@
             </div>
             <div class="card-footer">
                 <label for="" class="mb-2">Result</label>
-                <h1 class="h3">100</h1>
+                <h1 class="h3" id="result"></h1>
             </div>
         </div>
     </div>
@@ -48,7 +49,8 @@
         var fNumError = document.querySelector("#fNumError");
         var sNumError = document.querySelector("#sNumError");
         var operatorError = document.querySelector("#operatorError");
-        var clear = document.querySelector("clear");
+        var clear = document.querySelector("#clear");
+        var result = document.querySelector("#result");
 
         fNumError.style.display = "none";
         sNumError.style.display = "none";
@@ -56,9 +58,10 @@
 
         document.querySelector("#calculate").onclick = calculate;
         function calculate () {
-            var num1 = document.querySelector("#fNumber").value;
-            var num2 = document.querySelector("#sNumber").value;
+            var num1 = parseInt(document.querySelector("#fNumber").value);
+            var num2 = parseInt(document.querySelector("#sNumber").value);
             var operator = document.querySelector("#operators").value;
+            var output ;
 
             if (num1 ==="" || num1 === null){
                 fNumError.style.display = "block";
@@ -75,6 +78,24 @@
             } else {
                 operatorError.style.display = "none";
             }
+            switch (operator) {
+                case "add" : 
+                    output = num1  + num2 ;
+                    break;
+                case "minus" :
+                    output = num1  - num2;
+                    break;
+                case "multiply" :
+                    output = num1  * num2 ;
+                    break;
+                case "division" : 
+                    output = num1 / num2 ;
+                    break;
+                case "percantage" : 
+                    output = num1 * (num2/100) ;
+                    break
+            }
+            result.textContent = output ;
         }
 
         document.querySelector("#clearForm").onclick = clearForm;
